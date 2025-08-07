@@ -2,7 +2,7 @@ import { useState } from "react";
 import CardItem from "./CardItem";
 import Form from "./Form";
 
-export default function Card({ title, items }) {
+export default function Card({ cardId, title, items }) {
 	// Initialize state for done items and undone items
 	const [doneItems, setDoneItems] = useState(
 		items.filter((item) => item.isChecked)
@@ -51,7 +51,16 @@ export default function Card({ title, items }) {
 				);
 			}
 		}else{
-			
+			setDoneItems(doneItems.map((item) => {
+				if (item.id == itemId) {
+					item.text = itemTitle;
+				}
+			}));
+			undoneItems.map((item) => {
+				if (item.id == itemId) {
+					item.text = itemTitle;
+				}
+			});
 		}
 	};
 
