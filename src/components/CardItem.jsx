@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
-export default function CardItem({ text, checked }) {
+export default function CardItem({ text, isChecked }) {
 	const [value, setValue] = useState(text);
-	const [isChecked, setIsChecked] = useState(checked);
+	const [checked, setIsChecked] = useState(isChecked);
 
 	const handleChange = (e) => {
 		setValue(e.target.value);
 	};
 
 	const handleCheckboxClick = () => {
-		setIsChecked(!isChecked);
+		setIsChecked(!checked);
 	};
 
 	return (
@@ -21,11 +21,14 @@ export default function CardItem({ text, checked }) {
 				type="text"
 				className="w-full h-full border-none outline-none"
 			/>
-			<button onClick={handleCheckboxClick} className="flex items-center justify-center w-[30px] h-[30px]">
-				{isChecked ? (
-					<MdCheckBoxOutlineBlank className="w-[20px] h-[20px]" />
-				) : (
+			<button
+				onClick={handleCheckboxClick}
+				className="flex items-center justify-center w-[30px] h-[30px]"
+			>
+				{checked ? (
 					<MdCheckBox className="text-primary w-[20px] h-[20px]" />
+				) : (
+					<MdCheckBoxOutlineBlank className="w-[20px] h-[20px]" />
 				)}
 			</button>
 		</div>
