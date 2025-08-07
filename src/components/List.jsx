@@ -1,10 +1,10 @@
-import Cart from "./Cart";
+import Card from "./Card";
 import Form from "./Form";
 
 export default function List() {
-	const carts = [
+	const cards = [
 		{
-			title: "My Cart",
+			title: "My card",
 			items: [
 				{ text: "this is first task", checked: false },
 				{ text: "this is second task", checked: true },
@@ -16,16 +16,16 @@ export default function List() {
 
 	return (
 		<div className="flex flex-col items-center justify-center">
-			{/* add to do list carts button */}
+			{/* add to do list cards button */}
 			<Form
 				formClassName={`w-[335px] h-[36px] m-auto mt-[38px] flex content-center items-center`}
 				inputClassName={`w-[290px] p-[8px] border-1 rounded-tl-[10px] rounded-bl-[10px] border-adjacent outline-none`}
 				buttonClassName={`-ml-[1px] p-[8px] bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}
 			/>
-			{/* to do list carts */}
+			{/* to do list cards */}
 			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center">
-				{carts.map((cart, index) => (
-					<Cart key={index} title={cart.title} items={cart.items} />
+				{cards.map((card, index) => (
+					<Card key={index} title={card.title} items={card.items} />
 				))}
 			</div>
 		</div>

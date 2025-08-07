@@ -1,6 +1,6 @@
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
-export default function CartItem({ text, checked }) {
+export default function cardItem({ text, checked }) {
 	return (
 		<div className="flex items-center content-center justify-between w-full h-[30px]">
 			<p>{text}</p>

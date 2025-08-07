@@ -1,7 +1,7 @@
-import CartItem from "./CartItem";
+import CardItem from "./CardItem";
 import Form from "./Form";
 
-export default function Cart({ title, items }) {
+export default function Card({ title, items }) {
 	const doneItems = items.filter((item) => item.checked);
 	const undoneItems = items.filter((item) => !item.checked);
 	return (
@@ -11,7 +11,7 @@ export default function Cart({ title, items }) {
 			</h1>
 			<div className="flex flex-col content-center items-center justify-center w-full px-[10px]">
 				{doneItems.map((item, index) => (
-					<CartItem
+					<CardItem
 						key={index}
 						text={item.text}
 						checked={item.checked}
@@ -21,7 +21,7 @@ export default function Cart({ title, items }) {
 					<hr className="w-[305px] text-break" />
 				)}
 				{undoneItems.map((item, index) => (
-					<CartItem
+					<CardItem
 						key={index}
 						text={item.text}
 						checked={item.checked}
