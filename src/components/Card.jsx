@@ -9,7 +9,7 @@ export default function Card({ title, items }) {
 			<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
 				{title}
 			</h1>
-			<div className="flex flex-col content-center items-center justify-center w-full px-[10px]">
+			<div className="flex flex-col content-center items-center justify-center w-full px-[10px] mt-[5px] gap-1">
 				{doneItems.map((item, index) => (
 					<CardItem
 						key={index}

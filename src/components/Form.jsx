@@ -10,7 +10,7 @@ export default function Form({
 				<input
 					className={`${inputClassName}`}
 					type="text"
-					placeholder="Add To-do-list name"
+					placeholder="Add To-do-list Title"
 				/>
 				<input
 					className={`${buttonClassName}`}

@@ -23,7 +23,7 @@ export default function List() {
 				buttonClassName={`-ml-[1px] p-[8px] bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}
 			/>
 			{/* to do list cards */}
-			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center">
+			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center gap-[20px]">
 				{cards.map((card, index) => (
 					<Card key={index} title={card.title} items={card.items} />
 				))}
