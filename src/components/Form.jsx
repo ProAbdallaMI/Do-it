@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Form({
 	onSubmit,
@@ -8,26 +8,22 @@ export default function Form({
 	placeholder="Add a new item",
 }) {
 
-	const [itemTitle, setItemTitle] = useState("");
+	const inputItemRef = useRef("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		onSubmit(e);
-		setItemTitle(""); // Clear the input field after submission
-		
+		inputItemRef.current.value = ""; // Clear the input field after submission
+		inputItemRef.current.focus(); // Focus back on the input field
 	};
 
-	const handleItemTitleChange = (e) => {
-		setItemTitle(e.target.value);
-	};
 
 	return (
 		<div className={`${formClassName}`}>
 			<form onSubmit={handleSubmit}>
 				<input
 					className={`${inputClassName}`}
-					value={itemTitle}
-					onChange={handleItemTitleChange}
+					ref={inputItemRef}
 					type="text"
 					placeholder={placeholder}
 					name="itemTitle"
