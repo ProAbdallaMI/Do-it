@@ -1,5 +1,5 @@
-import Card from "./Card";
-import Form from "./Form";
+import Card from "./components/Card";
+import Form from "./components/Form";
 
 export default function List() {
 	const cards = [
