@@ -10,19 +10,50 @@ export default function Card({ title, items }) {
 	const [undoneItems, setUndoneItems] = useState(
 		items.filter((item) => !item.isChecked)
 	);
-	
 
 	// Update doneItems and undoneItems whenever allItems changes
 	const handleListItemAddition = (e) => {
 		e.preventDefault();
 
 		const formData = new FormData(e.target);
-		const newItem = {text: formData.get("itemTitle"), checked: false};
+		const newItem = {
+			id: doneItems.length + undoneItems.length + 1,
+			text: formData.get("itemTitle"),
+			isChecked: false,
+		};
 		if (!newItem.text.trim()) return;
 
 		setUndoneItems((prev) => [...prev, newItem]);
 	};
 
+	const handleCardItemsChange = (formData) => {
+		const itemId = formData.get("itemId");
+		const itemTitle = formData.get("itemTitle");
+		const isChecked = formData.get("isChecked") === "true";
+		const isChecking = formData.get("isChecking") === "true";
+
+		if (isChecking) {
+			if (isChecked) {
+				setUndoneItems((prev) => [
+					...prev,
+					{ id: itemId, text: itemTitle, isChecked: !isChecked },
+				]);
+				setDoneItems((prev) =>
+					prev.filter((item) => item.id != itemId)
+				);
+			} else if (!isChecked) {
+				setDoneItems((prev) => [
+					...prev,
+					{ id: itemId, text: itemTitle, isChecked: !isChecked },
+				]);
+				setUndoneItems((prev) =>
+					prev.filter((item) => item.id != itemId)
+				);
+			}
+		}else{
+			
+		}
+	};
 
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
@@ -30,21 +61,25 @@ export default function Card({ title, items }) {
 				{title}
 			</h1>
 			<div className="flex flex-col content-center items-center justify-center w-full px-[10px] mt-[5px] gap-1">
-				{undoneItems.map((item, index) => (
+				{undoneItems.map((item) => (
 					<CardItem
-						key={index}
+						key={item.id}
+						id={item.id}
 						text={item.text}
-						isChecked={item.isChecked}
+						checked={item.isChecked}
+						setChecked={handleCardItemsChange}
 					/>
 				))}
 				{doneItems.length > 0 && undoneItems.length > 0 && (
 					<hr className="w-[305px] text-break" />
 				)}
-				{doneItems.map((item, index) => (
+				{doneItems.map((item) => (
 					<CardItem
-						key={index}
+						key={item.id}
+						id={item.id}
 						text={item.text}
-						isChecked={item.isChecked}
+						checked={item.isChecked}
+						setChecked={handleCardItemsChange}
 					/>
 				))}
 			</div>

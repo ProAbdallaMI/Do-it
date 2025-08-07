@@ -14,6 +14,7 @@ export default function Form({
 		e.preventDefault();
 		onSubmit(e);
 		setItemTitle(""); // Clear the input field after submission
+		
 	};
 
 	const handleItemTitleChange = (e) => {

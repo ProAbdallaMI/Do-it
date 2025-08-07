@@ -4,12 +4,13 @@ import Form from "./components/Form";
 export default function List() {
 	const cards = [
 		{
+			id: 1,
 			title: "My card",
 			items: [
-				{ text: "this is first task", isChecked: false },
-				{ text: "this is second task", isChecked: true },
-				{ text: "this is third task", isChecked: false },
-				{ text: "this is fourth task", isChecked: true },
+				{ id: 1, text: "this is first task", isChecked: false },
+				{ id: 2, text: "this is second task", isChecked: true },
+				{ id: 3, text: "this is third task", isChecked: false },
+				{ id: 4, text: "this is fourth task", isChecked: true },
 			],
 		},
 	];
@@ -25,8 +26,8 @@ export default function List() {
 			/>
 			{/* to do list cards */}
 			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center gap-[20px]">
-				{cards.map((card, index) => (
-					<Card key={index} title={card.title} items={card.items} />
+				{cards.map((card) => (
+					<Card key={card.id} title={card.title} items={card.items} />
 				))}
 			</div>
 		</div>
