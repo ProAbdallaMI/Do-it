@@ -3,18 +3,7 @@ import Card from "./components/Card";
 import Form from "./components/Form";
 
 export default function List() {
-	const [cards, setCards] = useState([
-		{
-			id: 1,
-			title: "My card",
-			items: [
-				{ id: 1, text: "this is first task", isChecked: false },
-				{ id: 2, text: "this is second task", isChecked: true },
-				{ id: 3, text: "this is third task", isChecked: false },
-				{ id: 4, text: "this is fourth task", isChecked: true },
-			],
-		},
-	]);
+	const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
 
 	const handleListTitleAddition = (e) => {
 		e.preventDefault();
@@ -27,6 +16,7 @@ export default function List() {
 		if (!newCard.title.trim()) return;
 
 		setCards((prevCards) => [...prevCards, newCard]);
+		localStorage.setItem("cards", JSON.stringify([...cards, newCard]));
 	};
 
 	return (
@@ -42,7 +32,12 @@ export default function List() {
 			{/* to do list cards */}
 			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center gap-[20px]">
 				{cards.map((card) => (
-					<Card key={card.id} cardId={card.id} title={card.title} items={card.items} />
+					<Card
+						key={card.id}
+						cardId={card.id}
+						title={card.title}
+						items={card.items}
+					/>
 				))}
 			</div>
 		</div>

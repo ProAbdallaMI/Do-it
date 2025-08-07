@@ -4,6 +4,16 @@ import Form from "./Form";
 
 export default function Card({ cardId, title, items }) {
 	// Initialize state for done items and undone items
+	const [card, setCard] = useState({
+		id: cardId,
+		title: title,
+		items: items,
+	});
+	const [cards, setCards] = useState(
+		localStorage.getItem("cards")
+			? JSON.parse(localStorage.getItem("cards"))
+			: []
+	);
 	const [doneItems, setDoneItems] = useState(
 		items.filter((item) => item.isChecked)
 	);
@@ -24,7 +34,25 @@ export default function Card({ cardId, title, items }) {
 		if (!newItem.text.trim()) return;
 
 		setUndoneItems((prev) => [...prev, newItem]);
-	};
+
+		setCard((prev) => ({
+			...prev,
+			items: [...prev.items, newItem].concat(doneItems),
+		}));
+
+		setCards((prev) => {
+			const updatedCards = prev.map((card) => {
+				if (card.id == cardId) {
+					card.items = [...undoneItems, newItem].concat(doneItems);
+				}
+				return card;
+			});
+			localStorage.setItem("cards", JSON.stringify(updatedCards));
+			return updatedCards;
+		});
+	}
+
+	
 
 	const handleCardItemsChange = (formData) => {
 		const itemId = formData.get("itemId");
@@ -50,20 +78,42 @@ export default function Card({ cardId, title, items }) {
 					prev.filter((item) => item.id != itemId)
 				);
 			}
-		}else{
-			setDoneItems(doneItems.map((item) => {
-				if (item.id == itemId) {
-					item.text = itemTitle;
-				}
-			}));
-			undoneItems.map((item) => {
-				if (item.id == itemId) {
-					item.text = itemTitle;
-				}
+		} else {
+			setDoneItems( (prev) => (
+				prev.map((item) => {
+					if (item.id == itemId) {
+						item.text = itemTitle;
+					}
+					return item;
+				}))
+			);
+			setUndoneItems((prev) => {
+				return prev.map((item) => {
+					if (item.id == itemId) {
+						item.text = itemTitle;
+					}
+					return item;
+				});
 			});
 		}
+		setCard((prev) => ({
+			...prev,
+			items: [...undoneItems, ...doneItems],
+		}));
+		
+		setCards((prev) => {
+			const updatedCards = prev.map((card) => {
+				if (card.id == cardId) {
+					card.items = [...undoneItems, ...doneItems];
+				}
+				return card;
+			});
+			localStorage.setItem("cards", JSON.stringify(updatedCards));
+			return updatedCards;
+		});
 	};
 
+	console.log(cards);
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
 			<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
