@@ -91,6 +91,11 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 		}
 	};
 
+	const handleCardItemDeletion = (cardItemId) => {
+		setDoneItems((prev) => prev.filter((item) => item.id != cardItemId));
+		setUndoneItems((prev) => prev.filter((item) => item.id != cardItemId));
+	};
+
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
 			<div className="flex justify-between items-center w-full px-[10px] bg-cold">
@@ -111,6 +116,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 						text={item.text}
 						checked={item.isChecked}
 						setCardItem={handleCardItemChange}
+						onDelete={handleCardItemDeletion}
 					/>
 				))}
 				{doneItems.length > 0 && undoneItems.length > 0 && (
@@ -122,6 +128,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 						id={item.id}
 						text={item.text}
 						checked={item.isChecked}
+						onDelete={handleCardItemDeletion}
 						setCardItem={handleCardItemChange}
 					/>
 				))}

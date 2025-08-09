@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { MdCheckBox, MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
 
-export default function CardItem({ id, text, checked, setCardItem }) {
-	
+export default function CardItem({ id, text, checked, setCardItem, onDelete}) {
 	const [cardItem, setCardItemState] = useState({
 		id: id,
 		text: text,
@@ -30,7 +29,10 @@ export default function CardItem({ id, text, checked, setCardItem }) {
 			return updatedCardItem;
 		});
 	};
-	
+
+	const handleCardItemDeletion = () => {
+		onDelete(cardItem.id);
+	};
 
 	return (
 		<div className="flex items-center content-center justify-between w-full h-[30px]">
@@ -39,6 +41,10 @@ export default function CardItem({ id, text, checked, setCardItem }) {
 				value={cardItem.text}
 				type="text"
 				className="w-full h-full border-none outline-none"
+			/>
+			<MdDelete
+				onClick={handleCardItemDeletion}
+				className="cursor-pointer text-md text-red-400 w-[35px]"
 			/>
 			<button
 				onClick={handleCheckboxClick}
