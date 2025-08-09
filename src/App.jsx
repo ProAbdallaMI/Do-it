@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 
 function App() {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col mb-5">
 			<Navbar />
 			<List />
 			<Footer />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Form from "./components/Form";
+import formatDate from "./utility/date";
 
 export default function List() {
 	const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
@@ -17,6 +18,7 @@ export default function List() {
 		const newCard = {
 			id: cards.length + 1,
 			title: e.text,
+			date: formatDate(new Date()),
 			items: [],
 		};
 
@@ -52,6 +54,7 @@ export default function List() {
 						key={card.id}
 						cardId={card.id}
 						title={card.title}
+						date={card.date}
 						items={card.items}
 						onEdit={handleCardEdition}
 						onDelete={handleCardDeletion}

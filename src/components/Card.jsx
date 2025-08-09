@@ -3,11 +3,12 @@ import CardItem from "./CardItem";
 import Form from "./Form";
 import { MdDelete } from "react-icons/md";
 
-export default function Card({ cardId, title, items, onDelete, onEdit }) {
+export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	// Initialize state for done items and undone items
 	const [card, setCard] = useState({
 		id: cardId,
 		title: title,
+		date: date,
 		items: items,
 	});
 
@@ -63,9 +64,14 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
 			<div className="flex justify-between items-center w-full px-[10px]">
+				<span className="text-[10px] w-[35px]">{date}</span>
 				<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
 					{title}
-				</h1><MdDelete onClick={handleCardDeletion} className="cursor-pointer" />
+				</h1>
+				<MdDelete
+					onClick={handleCardDeletion}
+					className="cursor-pointer text-xl text-red-500 w-[35px]"
+				/>
 			</div>
 			<div className="flex flex-col content-center items-center justify-center w-full px-[10px] mt-[5px] gap-1">
 				{undoneItems.map((item) => (
