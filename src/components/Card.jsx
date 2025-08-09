@@ -63,9 +63,9 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
-			<div className="flex justify-between items-center w-full px-[10px]">
+			<div className="flex justify-between items-center w-full px-[10px] bg-cold">
 				<span className="text-[10px] w-[35px]">{date}</span>
-				<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
+				<h1 className="text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
 					{title}
 				</h1>
 				<MdDelete
@@ -99,7 +99,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 
 			<Form
 				onSubmit={handleCardItemAddition}
-				formClassName={`w-[325px] h-[36px] m-auto mt-[11px] flex content-center justify-center items-center text-[14px]`}
+				formClassName={`w-[325px] h-[36px] m-auto mt-[11px] mb-[11px] flex content-center justify-center items-center text-[14px]`}
 				inputClassName={`w-[260px] p-[4px] border-1 rounded-tl-[5px] rounded-bl-[5px] border-adjacent outline-none`}
 				buttonClassName={`p-[4px] bg-primary rounded-tr-[5px] rounded-br-[5px] border-1 border-adjacent w-[45px]`}
 			/>
