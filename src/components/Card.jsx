@@ -48,12 +48,42 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	};
 
 	const handleCardItemChange = (cardItem) => {
+		console.log(cardItem);
+
 		if (cardItem.isChecked) {
+			if (
+				cardItem.isChecked ==
+				card.items.find((item) => item.id == cardItem.id).isChecked
+			) {
+				setDoneItems((prev) => {
+					const updatedDoneItems = prev.map((item) =>
+						item.id == cardItem.id
+							? { ...item, text: cardItem.text }
+							: item
+					);
+					return updatedDoneItems;
+				});
+				return;
+			}
 			setDoneItems((prev) => [...prev, cardItem]);
 			setUndoneItems((prev) =>
 				prev.filter((item) => item.id != cardItem.id)
 			);
 		} else {
+			if (
+				cardItem.isChecked ==
+				card.items.find((item) => item.id == cardItem.id).isChecked
+			) {
+				setUndoneItems((prev) => {
+					const updatedUndoneItems = prev.map((item) =>
+						item.id == cardItem.id
+							? { ...item, text: cardItem.text }
+							: item
+					);
+					return updatedUndoneItems;
+				});
+				return;
+			}
 			setUndoneItems((prev) => [...prev, cardItem]);
 			setDoneItems((prev) =>
 				prev.filter((item) => item.id != cardItem.id)
