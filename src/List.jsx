@@ -1,19 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Form from "./components/Form";
 
 export default function List() {
-	//const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
-	const [cards, setCards] = useState([
-		// {
-		// 	id: 1,
-		// 	title: "My First Card",
-		// 	items: [
-		// 		{ id: 1, text: "First Item", isChecked: false },
-		// 		{ id: 2, text: "Second Item", isChecked: true },
-		// 	],
-		// },
-	]);
+	const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
+
+
+	useEffect(() => {
+		localStorage.setItem("cards", JSON.stringify(cards));
+	}, [cards]);
 
 	// handle adding a new card
 	const handleNewCardAddition = (e) => {
@@ -24,9 +19,20 @@ export default function List() {
 			title: e.text,
 			items: [],
 		};
-		
+
 		setCards((prevCards) => [...prevCards, newCard]);
 		//localStorage.setItem("cards", JSON.stringify([...cards, newCard]));
+	};
+
+	// handle editing a card
+	const handleCardEdition = (card) => {
+		setCards((prevCards) =>
+			prevCards.map((c) => (c.id == card.id ? card : c))
+		);
+	};
+
+	const handleCardDeletion = (cardId) => {
+		setCards((prevCards) => prevCards.filter((c) => c.id != cardId));
 	};
 
 	return (
@@ -47,6 +53,8 @@ export default function List() {
 						cardId={card.id}
 						title={card.title}
 						items={card.items}
+						onEdit={handleCardEdition}
+						onDelete={handleCardDeletion}
 					/>
 				))}
 			</div>

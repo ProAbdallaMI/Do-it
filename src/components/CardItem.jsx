@@ -2,34 +2,41 @@ import { useState } from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
 export default function CardItem({ id, text, checked, setCardItem }) {
-	const [value, setValue] = useState(text);
-	const [isChecked, setIsChecked] = useState(checked);
+	
+	const [cardItem, setCardItemState] = useState({
+		id: id,
+		text: text,
+		isChecked: checked,
+	});
 
 	const handleInputChange = (e) => {
-		setValue(e.target.value);
-		setCardItem({
-			id: id,
-			text: e.target.value,
-			isChecked: isChecked,
+		setCardItemState((prev) => {
+			const updatedCardItem = {
+				...prev,
+				text: e.target.value,
+			};
+			setCardItem(updatedCardItem);
+			return updatedCardItem;
 		});
 	};
 
 	const handleCheckboxClick = () => {
-		setIsChecked(!isChecked);
-		setCardItem({
-			id: id,
-			text: value,
-			isChecked: !isChecked,
+		setCardItemState((prev) => {
+			const updatedCardItem = {
+				...prev,
+				isChecked: !prev.isChecked,
+			};
+			setCardItem(updatedCardItem);
+			return updatedCardItem;
 		});
 	};
-
 	
 
 	return (
 		<div className="flex items-center content-center justify-between w-full h-[30px]">
 			<input
 				onChange={handleInputChange}
-				value={value}
+				value={cardItem.text}
 				type="text"
 				className="w-full h-full border-none outline-none"
 			/>
@@ -37,7 +44,7 @@ export default function CardItem({ id, text, checked, setCardItem }) {
 				onClick={handleCheckboxClick}
 				className="flex items-center justify-center w-[40px] h-[40px]"
 			>
-				{isChecked ? (
+				{cardItem.isChecked ? (
 					<MdCheckBox className="text-primary w-[20px] h-[20px]" />
 				) : (
 					<MdCheckBoxOutlineBlank className="w-[20px] h-[20px]" />

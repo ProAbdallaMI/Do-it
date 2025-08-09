@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardItem from "./CardItem";
 import Form from "./Form";
+import { MdDelete } from "react-icons/md";
 
 export default function Card({ cardId, title, items, onDelete, onEdit }) {
 	// Initialize state for done items and undone items
@@ -17,8 +18,23 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 		items.filter((item) => !item.isChecked)
 	);
 
+	useEffect(() => {
+		setCard((prev) => ({
+			...prev,
+			items: [...doneItems, ...undoneItems],
+		}));
+	}, [doneItems, undoneItems]);
+
+	useEffect(() => {
+		onEdit(card);
+	}, [card]);
+
+	const handleCardDeletion = () => {
+		onDelete(card.id);
+	};
+
 	// Update doneItems and undoneItems whenever allItems changes
-	const handleListItemAddition = (e) => {
+	const handleCardItemAddition = (e) => {
 		if (!e.text.trim()) return;
 
 		const newCardItem = {
@@ -28,16 +44,10 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 		};
 
 		setUndoneItems((prev) => [...prev, newCardItem]);
-
-		setCard((prev) => ({
-			...prev,
-			items: [...prev.items, newCardItem].concat(doneItems),
-		}));
 	};
 
-	const handleCardItemsChange = (cardItem) => {
-		
-		if(cardItem.isChecked) {
+	const handleCardItemChange = (cardItem) => {
+		if (cardItem.isChecked) {
 			setDoneItems((prev) => [...prev, cardItem]);
 			setUndoneItems((prev) =>
 				prev.filter((item) => item.id != cardItem.id)
@@ -48,20 +58,15 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 				prev.filter((item) => item.id != cardItem.id)
 			);
 		}
-		setCard((prev) => {
-			const updatedItems = prev.items.map((item) =>
-				item.id == cardItem.id ? cardItem : item
-			);
-			return { ...prev, items: updatedItems };
-		});
 	};
 
-	
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
-			<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
-				{title}
-			</h1>
+			<div className="flex justify-between items-center w-full px-[10px]">
+				<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
+					{title}
+				</h1><MdDelete onClick={handleCardDeletion} className="cursor-pointer" />
+			</div>
 			<div className="flex flex-col content-center items-center justify-center w-full px-[10px] mt-[5px] gap-1">
 				{undoneItems.map((item) => (
 					<CardItem
@@ -69,7 +74,7 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 						id={item.id}
 						text={item.text}
 						checked={item.isChecked}
-						setCardItem={handleCardItemsChange}
+						setCardItem={handleCardItemChange}
 					/>
 				))}
 				{doneItems.length > 0 && undoneItems.length > 0 && (
@@ -81,13 +86,13 @@ export default function Card({ cardId, title, items, onDelete, onEdit }) {
 						id={item.id}
 						text={item.text}
 						checked={item.isChecked}
-						setCardItem={handleCardItemsChange}
+						setCardItem={handleCardItemChange}
 					/>
 				))}
 			</div>
 
 			<Form
-				onSubmit={handleListItemAddition}
+				onSubmit={handleCardItemAddition}
 				formClassName={`w-[325px] h-[36px] m-auto mt-[11px] flex content-center justify-center items-center text-[14px]`}
 				inputClassName={`w-[260px] p-[4px] border-1 rounded-tl-[5px] rounded-bl-[5px] border-adjacent outline-none`}
 				buttonClassName={`p-[4px] bg-primary rounded-tr-[5px] rounded-br-[5px] border-1 border-adjacent w-[45px]`}

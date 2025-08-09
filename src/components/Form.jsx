@@ -34,6 +34,7 @@ export default function Form({
 					className={`${buttonClassName}`}
 					type="submit"
 					value={"Add"}
+					tabIndex={-1}
 				/>
 			</form>
 		</div>
