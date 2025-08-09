@@ -3,27 +3,37 @@ import Card from "./components/Card";
 import Form from "./components/Form";
 
 export default function List() {
-	const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
+	//const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
+	const [cards, setCards] = useState([
+		// {
+		// 	id: 1,
+		// 	title: "My First Card",
+		// 	items: [
+		// 		{ id: 1, text: "First Item", isChecked: false },
+		// 		{ id: 2, text: "Second Item", isChecked: true },
+		// 	],
+		// },
+	]);
 
-	const handleListTitleAddition = (e) => {
-		e.preventDefault();
-		const formData = new FormData(e.target);
+	// handle adding a new card
+	const handleNewCardAddition = (e) => {
+		if (!e.text.trim()) return;
+
 		const newCard = {
 			id: cards.length + 1,
-			title: formData.get("itemTitle"),
+			title: e.text,
 			items: [],
 		};
-		if (!newCard.title.trim()) return;
-
+		
 		setCards((prevCards) => [...prevCards, newCard]);
-		localStorage.setItem("cards", JSON.stringify([...cards, newCard]));
+		//localStorage.setItem("cards", JSON.stringify([...cards, newCard]));
 	};
 
 	return (
 		<div className="flex flex-col items-center justify-center">
 			{/* add to do list cards button */}
 			<Form
-				onSubmit={handleListTitleAddition}
+				onSubmit={handleNewCardAddition}
 				formClassName={`w-[335px] h-[36px] m-auto mt-[38px] flex content-center items-center`}
 				inputClassName={`w-[290px] p-[8px] border-1 rounded-tl-[10px] rounded-bl-[10px] border-adjacent outline-none`}
 				buttonClassName={`w-[45px] p-[8px] bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}

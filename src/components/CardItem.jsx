@@ -1,33 +1,34 @@
 import { useState } from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
-export default function CardItem({ id, text, checked, setChecked }) {
+export default function CardItem({ id, text, checked, setCardItem }) {
 	const [value, setValue] = useState(text);
 	const [isChecked, setIsChecked] = useState(checked);
 
-	const handleChange = (e) => {
+	const handleInputChange = (e) => {
 		setValue(e.target.value);
-		submitForm();
+		setCardItem({
+			id: id,
+			text: e.target.value,
+			isChecked: isChecked,
+		});
 	};
 
-	const handleCheckboxClick = (e) => {
-		submitForm(e);
+	const handleCheckboxClick = () => {
+		setIsChecked(!isChecked);
+		setCardItem({
+			id: id,
+			text: value,
+			isChecked: !isChecked,
+		});
 	};
 
-	const submitForm = (e) => {
-		// Handle form submission logic here
-		const formData = new FormData();
-		formData.append("itemId", id);
-		formData.append("itemTitle", value);
-		formData.append("isChecked", isChecked);
-		formData.append("isChecking", e?.target.tagName !== undefined);
-		setChecked(formData);
-	};
+	
 
 	return (
 		<div className="flex items-center content-center justify-between w-full h-[30px]">
 			<input
-				onChange={handleChange}
+				onChange={handleInputChange}
 				value={value}
 				type="text"
 				className="w-full h-full border-none outline-none"

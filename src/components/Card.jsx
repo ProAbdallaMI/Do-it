@@ -2,18 +2,14 @@ import { useState } from "react";
 import CardItem from "./CardItem";
 import Form from "./Form";
 
-export default function Card({ cardId, title, items }) {
+export default function Card({ cardId, title, items, onDelete, onEdit }) {
 	// Initialize state for done items and undone items
 	const [card, setCard] = useState({
 		id: cardId,
 		title: title,
 		items: items,
 	});
-	const [cards, setCards] = useState(
-		localStorage.getItem("cards")
-			? JSON.parse(localStorage.getItem("cards"))
-			: []
-	);
+
 	const [doneItems, setDoneItems] = useState(
 		items.filter((item) => item.isChecked)
 	);
@@ -23,97 +19,44 @@ export default function Card({ cardId, title, items }) {
 
 	// Update doneItems and undoneItems whenever allItems changes
 	const handleListItemAddition = (e) => {
-		e.preventDefault();
+		if (!e.text.trim()) return;
 
-		const formData = new FormData(e.target);
-		const newItem = {
+		const newCardItem = {
 			id: doneItems.length + undoneItems.length + 1,
-			text: formData.get("itemTitle"),
+			text: e.text,
 			isChecked: false,
 		};
-		if (!newItem.text.trim()) return;
 
-		setUndoneItems((prev) => [...prev, newItem]);
+		setUndoneItems((prev) => [...prev, newCardItem]);
 
 		setCard((prev) => ({
 			...prev,
-			items: [...prev.items, newItem].concat(doneItems),
+			items: [...prev.items, newCardItem].concat(doneItems),
 		}));
+	};
 
-		setCards((prev) => {
-			const updatedCards = prev.map((card) => {
-				if (card.id == cardId) {
-					card.items = [...undoneItems, newItem].concat(doneItems);
-				}
-				return card;
-			});
-			localStorage.setItem("cards", JSON.stringify(updatedCards));
-			return updatedCards;
-		});
-	}
-
-	
-
-	const handleCardItemsChange = (formData) => {
-		const itemId = formData.get("itemId");
-		const itemTitle = formData.get("itemTitle");
-		const isChecked = formData.get("isChecked") === "true";
-		const isChecking = formData.get("isChecking") === "true";
-
-		if (isChecking) {
-			if (isChecked) {
-				setUndoneItems((prev) => [
-					...prev,
-					{ id: itemId, text: itemTitle, isChecked: !isChecked },
-				]);
-				setDoneItems((prev) =>
-					prev.filter((item) => item.id != itemId)
-				);
-			} else if (!isChecked) {
-				setDoneItems((prev) => [
-					...prev,
-					{ id: itemId, text: itemTitle, isChecked: !isChecked },
-				]);
-				setUndoneItems((prev) =>
-					prev.filter((item) => item.id != itemId)
-				);
-			}
-		} else {
-			setDoneItems( (prev) => (
-				prev.map((item) => {
-					if (item.id == itemId) {
-						item.text = itemTitle;
-					}
-					return item;
-				}))
-			);
-			setUndoneItems((prev) => {
-				return prev.map((item) => {
-					if (item.id == itemId) {
-						item.text = itemTitle;
-					}
-					return item;
-				});
-			});
-		}
-		setCard((prev) => ({
-			...prev,
-			items: [...undoneItems, ...doneItems],
-		}));
+	const handleCardItemsChange = (cardItem) => {
 		
-		setCards((prev) => {
-			const updatedCards = prev.map((card) => {
-				if (card.id == cardId) {
-					card.items = [...undoneItems, ...doneItems];
-				}
-				return card;
-			});
-			localStorage.setItem("cards", JSON.stringify(updatedCards));
-			return updatedCards;
+		if(cardItem.isChecked) {
+			setDoneItems((prev) => [...prev, cardItem]);
+			setUndoneItems((prev) =>
+				prev.filter((item) => item.id != cardItem.id)
+			);
+		} else {
+			setUndoneItems((prev) => [...prev, cardItem]);
+			setDoneItems((prev) =>
+				prev.filter((item) => item.id != cardItem.id)
+			);
+		}
+		setCard((prev) => {
+			const updatedItems = prev.items.map((item) =>
+				item.id == cardItem.id ? cardItem : item
+			);
+			return { ...prev, items: updatedItems };
 		});
 	};
 
-	console.log(cards);
+	
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
 			<h1 className="bg-cold text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
@@ -126,7 +69,7 @@ export default function Card({ cardId, title, items }) {
 						id={item.id}
 						text={item.text}
 						checked={item.isChecked}
-						setChecked={handleCardItemsChange}
+						setCardItem={handleCardItemsChange}
 					/>
 				))}
 				{doneItems.length > 0 && undoneItems.length > 0 && (
@@ -138,7 +81,7 @@ export default function Card({ cardId, title, items }) {
 						id={item.id}
 						text={item.text}
 						checked={item.isChecked}
-						setChecked={handleCardItemsChange}
+						setCardItem={handleCardItemsChange}
 					/>
 				))}
 			</div>
