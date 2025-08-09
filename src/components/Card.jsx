@@ -109,7 +109,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 				/>
 			</div>
 			<div className="flex flex-col content-center items-center justify-center w-full px-[10px] mt-[5px] gap-1">
-				{undoneItems.map((item) => (
+				{[...undoneItems].reverse().map((item) => (
 					<CardItem
 						key={item.id}
 						id={item.id}
@@ -122,7 +122,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 				{doneItems.length > 0 && undoneItems.length > 0 && (
 					<hr className="w-[305px] text-break" />
 				)}
-				{doneItems.map((item) => (
+				{[...doneItems].reverse().map((item) => (
 					<CardItem
 						key={item.id}
 						id={item.id}

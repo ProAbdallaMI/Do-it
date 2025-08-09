@@ -49,7 +49,7 @@ export default function List() {
 			/>
 			{/* to do list cards */}
 			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center gap-[20px]">
-				{cards.map((card) => (
+				{[...cards].reverse().map((card) => (
 					<Card
 						key={card.id}
 						cardId={card.id}
