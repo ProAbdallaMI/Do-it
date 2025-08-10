@@ -1,12 +1,52 @@
-# React + Vite
+# Do It - Task Management App
+A simple and intuitive task management application built with React and Tailwind CSS.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- Create multiple task cards
 
-Currently, two official plugins are available:
+- Add, edit, and delete tasks within each card
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Mark tasks as complete/incomplete
 
-## Expanding the ESLint configuration
+- Automatic sorting of tasks (uncompleted at top, completed at bottom)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Local storage persistence for all your tasks
+
+- Clean, responsive UI with Tailwind CSS styling
+
+## Usage
+- Open link then
+
+- Add a new card: Type a title in the "Add a new card" input at the top and click "Add"
+
+- Add tasks: Within each card, type a task in the input field and click "Add"
+
+- Complete tasks: Click the checkbox icon to mark a task as complete
+
+- Edit tasks: Click on any task text to edit it
+
+- Delete tasks: Click the trash can icon next to a task to delete it
+
+- Delete cards: Click the trash can icon in the card header to delete the entire card
+
+## Technologies Used
+- React (Vite)
+
+- Tailwind CSS
+
+- React Icons (for UI icons)
+
+- LocalStorage (for data persistence)
+
+## installation
+- clone the repository
+"git clone https://github.com/ProAbdallaMI/Do-it.git"
+- navigate to the project directory
+`cd Do-it`
+- install dependencies
+`npm install`
+- start development server
+`npm run dev`
+
+## Credits
+Developed by `ABDALLA MOHAMED ASHAG`
