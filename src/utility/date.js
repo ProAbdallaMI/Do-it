@@ -1,6 +1,9 @@
 export default function formatDate(date) {
-    const time = date.getHours() + ":" + date.getMinutes();
-    const dayMonth = date.getDay() + " " + numToName(date.getMonth());
+    const hours = date.getHours().toString();
+    const minutes = date.getMinutes().toString();
+    const time = (hours.length === 1 ? "0" + hours : hours) + ":" + (minutes.length === 1 ? "0" + minutes : minutes);
+    console.log("time", time);
+    const dayMonth = date.getDate() + " " + numToName(date.getMonth());
 	return dayMonth + " " + time;
 }
 
