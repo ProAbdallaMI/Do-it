@@ -48,13 +48,12 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	};
 
 	const handleCardItemChange = (cardItem) => {
-		console.log(cardItem);
+		const isCheckboxChanged =
+			cardItem.isChecked ===
+			card.items.find((item) => item.id == cardItem.id).isChecked;
 
 		if (cardItem.isChecked) {
-			if (
-				cardItem.isChecked ==
-				card.items.find((item) => item.id == cardItem.id).isChecked
-			) {
+			if (isCheckboxChanged) {
 				setDoneItems((prev) => {
 					const updatedDoneItems = prev.map((item) =>
 						item.id == cardItem.id
@@ -70,10 +69,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 				prev.filter((item) => item.id != cardItem.id)
 			);
 		} else {
-			if (
-				cardItem.isChecked ==
-				card.items.find((item) => item.id == cardItem.id).isChecked
-			) {
+			if (isCheckboxChanged) {
 				setUndoneItems((prev) => {
 					const updatedUndoneItems = prev.map((item) =>
 						item.id == cardItem.id
@@ -99,7 +95,9 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	return (
 		<div className="w-[325px] bg-secondary pb-[10px] shadow-xs flex flex-col content-center items-center justify-center rounded-[10px] text-[16px]">
 			<div className="flex justify-between items-center w-full px-[10px] bg-cold">
-				<span className="text-[10px] w-[45px] font-bold opacity-50">{date}</span>
+				<span className="text-[10px] w-[45px] font-bold opacity-50">
+					{date}
+				</span>
 				<h1 className="text-center font-bold p-[8px] w-full rounded-tl-[10px] rounded-tr-[10px]">
 					{title}
 				</h1>
