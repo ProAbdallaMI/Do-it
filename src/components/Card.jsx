@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CardItem from "./CardItem";
 import Form from "./Form";
 import { MdDelete } from "react-icons/md";
@@ -19,6 +19,8 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 		items.filter((item) => !item.isChecked)
 	);
 
+	const render = useRef(false);
+
 	useEffect(() => {
 		setCard((prev) => ({
 			...prev,
@@ -27,7 +29,15 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	}, [doneItems, undoneItems]);
 
 	useEffect(() => {
+		// send edits to parent component
 		onEdit(card);
+
+		// re-render done and undone items
+		if (render.current) {
+			setDoneItems(card.items.filter((item) => item.isChecked));
+			setUndoneItems(card.items.filter((item) => !item.isChecked));
+			render.current = false;
+		}
 	}, [card]);
 
 	const handleCardDeletion = () => {
@@ -48,46 +58,22 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	};
 
 	const handleCardItemChange = (cardItem) => {
-		const isRealChange = card.items.find((item) => item.id == cardItem.id)?.isChecked !== undefined;
-		if (!isRealChange) return;
-		
-		const isCheckboxChanged =
-			cardItem.isChecked ===
-			card.items.find((item) => item.id == cardItem.id)?.isChecked;
+		// update either one of done or undone list
+		setDoneItems((prev) =>
+			prev.map((item) => (item.id == cardItem.id ? cardItem : item))
+		);
+		setUndoneItems((prev) =>
+			prev.map((item) => (item.id == cardItem.id ? cardItem : item))
+		);
 
-		if (cardItem.isChecked) {
-			if (isCheckboxChanged) {
-				setDoneItems((prev) => {
-					const updatedDoneItems = prev.map((item) =>
-						item.id == cardItem.id
-							? { ...item, text: cardItem.text }
-							: item
-					);
-					return updatedDoneItems;
-				});
-				return;
+		card.items.forEach((item) => {
+			if (
+				item.id == cardItem.id &&
+				item.isChecked != cardItem.isChecked
+			) {
+				render.current = true;
 			}
-			setDoneItems((prev) => [...prev, cardItem]);
-			setUndoneItems((prev) =>
-				prev.filter((item) => item.id != cardItem.id)
-			);
-		} else {
-			if (isCheckboxChanged) {
-				setUndoneItems((prev) => {
-					const updatedUndoneItems = prev.map((item) =>
-						item.id == cardItem.id
-							? { ...item, text: cardItem.text }
-							: item
-					);
-					return updatedUndoneItems;
-				});
-				return;
-			}
-			setUndoneItems((prev) => [...prev, cardItem]);
-			setDoneItems((prev) =>
-				prev.filter((item) => item.id != cardItem.id)
-			);
-		}
+		});
 	};
 
 	const handleCardItemDeletion = (cardItemId) => {
