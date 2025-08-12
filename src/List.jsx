@@ -4,11 +4,8 @@ import Form from "./components/Form";
 import formatDate from "./utility/date";
 
 export default function List() {
-	const [cards, setCards] = useState(
-		localStorage.getItem("cards")
-			? JSON.parse(localStorage.getItem("cards"))
-			: []
-	);
+	const [cards, setCards] = useState(localStorage.getItem("cards") ? JSON.parse(localStorage.getItem("cards")) : []);
+
 
 	useEffect(() => {
 		localStorage.setItem("cards", JSON.stringify(cards));
@@ -41,17 +38,17 @@ export default function List() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center w-full">
+		<div className="flex flex-col items-center justify-center">
 			{/* add to do list cards button */}
 			<Form
 				onSubmit={handleNewCardAddition}
-				formClassName={`w-full max-w-[768px] m-auto mt-12 flex content-center items-center justify-center`}
-				inputClassName={`w-80/100 p-2 rounded-tl-[10px] rounded-bl-[10px] border-1 border-adjacent outline-none`}
-				buttonClassName={`w-20/100 p-2 text-white bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent outline-adjacent`}
+				formClassName={`w-[335px] h-[36px] m-auto mt-[38px] flex content-center items-center`}
+				inputClassName={`w-[290px] p-[8px] border-1 rounded-tl-[10px] rounded-bl-[10px] border-adjacent outline-none`}
+				buttonClassName={`w-[45px] p-[8px] text-white bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}
 				placeholder="Add a new card"
 			/>
 			{/* to do list cards */}
-			<div className="w-full m-auto mt-12 flex flex-col content-center items-center gap-[20px]">
+			<div className="w-[335px] m-auto mt-[46px] flex flex-col content-center items-center gap-[20px]">
 				{[...cards].reverse().map((card) => (
 					<Card
 						key={card.id}

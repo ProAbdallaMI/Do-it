@@ -21,7 +21,8 @@ export default function Form({
 	};
 
 	return (
-			<form onSubmit={handleSubmit} className={`${formClassName}`}>
+		<div className={`${formClassName}`}>
+			<form onSubmit={handleSubmit}>
 				<input
 					className={`${inputClassName}`}
 					value={inputValue}
@@ -36,5 +37,6 @@ export default function Form({
 					tabIndex={-1}
 				/>
 			</form>
+		</div>
 	);
 }
