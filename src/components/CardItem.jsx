@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
 
 export default function CardItem({ id, text, checked, setCardItem, onDelete}) {
@@ -8,13 +8,16 @@ export default function CardItem({ id, text, checked, setCardItem, onDelete}) {
 		isChecked: checked,
 	});
 
+	useEffect(() => {
+		setCardItem(cardItem);
+	}, [cardItem]);
+
 	const handleInputChange = (e) => {
 		setCardItemState((prev) => {
 			const updatedCardItem = {
 				...prev,
 				text: e.target.value,
 			};
-			setCardItem(updatedCardItem);
 			return updatedCardItem;
 		});
 	};
@@ -25,7 +28,6 @@ export default function CardItem({ id, text, checked, setCardItem, onDelete}) {
 				...prev,
 				isChecked: !prev.isChecked,
 			};
-			setCardItem(updatedCardItem);
 			return updatedCardItem;
 		});
 	};

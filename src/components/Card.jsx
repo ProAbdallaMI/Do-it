@@ -39,7 +39,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 		if (!e.text.trim()) return;
 
 		const newCardItem = {
-			id: doneItems.length + undoneItems.length + 1,
+			id: Date.now(),
 			text: e.text,
 			isChecked: false,
 		};
@@ -48,9 +48,12 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	};
 
 	const handleCardItemChange = (cardItem) => {
+		const isRealChange = card.items.find((item) => item.id == cardItem.id)?.isChecked !== undefined;
+		if (!isRealChange) return;
+		
 		const isCheckboxChanged =
 			cardItem.isChecked ===
-			card.items.find((item) => item.id == cardItem.id).isChecked;
+			card.items.find((item) => item.id == cardItem.id)?.isChecked;
 
 		if (cardItem.isChecked) {
 			if (isCheckboxChanged) {

@@ -16,7 +16,7 @@ export default function List() {
 		if (!e.text.trim()) return;
 
 		const newCard = {
-			id: cards.length + 1,
+			id: Date.now(),
 			title: e.text,
 			date: formatDate(new Date()),
 			items: [],
