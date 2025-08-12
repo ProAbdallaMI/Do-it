@@ -44,7 +44,7 @@ export default function List() {
 				onSubmit={handleNewCardAddition}
 				formClassName={`w-[335px] h-[36px] m-auto mt-[38px] flex content-center items-center`}
 				inputClassName={`w-[290px] p-[8px] border-1 rounded-tl-[10px] rounded-bl-[10px] border-adjacent outline-none`}
-				buttonClassName={`w-[45px] p-[8px] bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}
+				buttonClassName={`w-[45px] p-[8px] text-white bg-primary rounded-tr-[10px] rounded-br-[10px] border-1 border-adjacent`}
 				placeholder="Add a new card"
 			/>
 			{/* to do list cards */}

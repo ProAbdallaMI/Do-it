@@ -136,7 +136,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 				onSubmit={handleCardItemAddition}
 				formClassName={`w-[325px] h-[36px] m-auto mt-[11px] mb-[11px] flex content-center justify-center items-center text-[14px]`}
 				inputClassName={`w-[260px] p-[4px] border-1 rounded-tl-[5px] rounded-bl-[5px] border-adjacent outline-none`}
-				buttonClassName={`p-[4px] bg-primary rounded-tr-[5px] rounded-br-[5px] border-1 border-adjacent w-[45px]`}
+				buttonClassName={`p-[4px] text-white bg-primary rounded-tr-[5px] rounded-br-[5px] border-1 border-adjacent w-[45px]`}
 			/>
 		</div>
 	);
