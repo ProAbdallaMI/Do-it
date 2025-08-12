@@ -48,6 +48,9 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 	};
 
 	const handleCardItemChange = (cardItem) => {
+		const isRealChange = card.items.find((item) => item.id == cardItem.id)?.isChecked !== undefined;
+		if (!isRealChange) return;
+		
 		const isCheckboxChanged =
 			cardItem.isChecked ===
 			card.items.find((item) => item.id == cardItem.id)?.isChecked;
