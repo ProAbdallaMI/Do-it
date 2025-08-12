@@ -121,7 +121,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 					/>
 				))}
 				{doneItems.length > 0 && undoneItems.length > 0 && (
-					<hr className="w-[305px] text-break" />
+					<hr className="w-98/100 -ml-3 text-break" />
 				)}
 				{[...doneItems].reverse().map((item) => (
 					<CardItem
@@ -137,7 +137,7 @@ export default function Card({ cardId, title, date, items, onDelete, onEdit }) {
 
 			<Form
 				onSubmit={handleCardItemAddition}
-				formClassName={`w-full h-[36px] m-auto mt-3 mb-3 px-5 flex content-center justify-center items-center text-[14px]`}
+				formClassName={`w-full m-auto mt-3 mb-3 px-5 flex content-center justify-center items-center text-[14px]`}
 				inputClassName={`w-80/100 p-1 border-1 rounded-tl-sm rounded-bl-sm border-adjacent outline-none`}
 				buttonClassName={`w-20/100 p-1 text-white bg-primary rounded-tr-sm rounded-br-sm border-1 border-adjacent`}
 			/>
