@@ -1,6 +1,6 @@
 # Do It - Task Management App
 A simple and intuitive task management application built with React and Tailwind CSS.
-
+---
 ## Features
 - Create multiple task cards
 
@@ -13,7 +13,7 @@ A simple and intuitive task management application built with React and Tailwind
 - Local storage persistence for all your tasks
 
 - Clean, responsive UI with Tailwind CSS styling
-
+---
 ## Usage
 - Open link then
 
@@ -28,7 +28,7 @@ A simple and intuitive task management application built with React and Tailwind
 - Delete tasks: Click the trash can icon next to a task to delete it
 
 - Delete cards: Click the trash can icon in the card header to delete the entire card
-
+---
 ## Technologies Used
 - React (Vite)
 
@@ -37,7 +37,7 @@ A simple and intuitive task management application built with React and Tailwind
 - React Icons (for UI icons)
 
 - LocalStorage (for data persistence)
-
+---
 ## installation
 - clone the repository
 "git clone https://github.com/ProAbdallaMI/Do-it.git"
@@ -47,6 +47,6 @@ A simple and intuitive task management application built with React and Tailwind
 `npm install`
 - start development server
 `npm run dev`
-
+---
 ## Credits
 Developed by `ABDALLA MOHAMED ASHAG`
