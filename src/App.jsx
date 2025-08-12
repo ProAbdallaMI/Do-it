@@ -1,15 +1,8 @@
-import Footer from "./Footer";
-import List from "./List";
-import Navbar from "./Navbar";
+import PublicLayout from "./PublicLayout";
 
 function App() {
-	return (
-		<div className="flex flex-col mb-5">
-			<Navbar />
-			<List />
-			<Footer />
-		</div>
-	);
+	return <PublicLayout />;
 }
 
 export default App;
+
