@@ -1,0 +1,1 @@
+{"name":"Do it","short_name":"Do-it","description":"task management app","start_url":"/Do-it/","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","lang":"en","scope":"/Do-it/","icons":[{"src":"/Do-it/pwa-192x192.png","sizes":"200x200","type":"image/png"}]}
